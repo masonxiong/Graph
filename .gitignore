@@ -1,0 +1,26 @@
+# VS Code settings
+.vscode/
+
+# Build directories
+build/
+*.exe
+*.o
+*.obj
+
+# Compiled files
+*.out
+*.a
+*.so
+*.dll
+
+# Editor backup files
+*~
+*.swp
+*.swo
+.DS_Store
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
