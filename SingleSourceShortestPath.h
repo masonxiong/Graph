@@ -99,15 +99,16 @@ namespace graph {
             std::vector<bool> visited(n);
             std::vector<sizeType> count(n), queue(n);
             auto front = queue.begin(), back = queue.begin();
-            for (*back++ = source; front != back; ) {
+            for (*back++ = source, ++count[source]; front != back; ) {
                 sizeType u = *front;
                 ++front == queue.end() && (front = queue.begin(), 1), visited[u] = false;
                 for (auto e : graph[u]) {
-                    if (compare(merge(m_distance[u], std::get<1>(e)), m_distance[sizeType(std::get<0>(e))])) {
-                        if (m_distance[sizeType(std::get<0>(e))] = merge(m_distance[u], std::get<1>(e)), (count[sizeType(std::get<0>(e))] = count[u] + 1) == n)
-                            return void(m_valid = false);
-                        if (!visited[sizeType(std::get<0>(e))]) {
-                            *back = std::get<0>(e), visited[sizeType(std::get<0>(e))] = true;
+                    sizeType v = sizeType(std::get<0>(e));
+                    if (compare(merge(m_distance[u], std::get<1>(e)), m_distance[v])) {
+                        m_distance[v] = merge(m_distance[u], std::get<1>(e));
+                        if (!visited[v]) {
+                            if (*back = v, visited[v] = true, ++count[v] >= n)
+                                return void(m_valid = false);
                             ++back == queue.end() && (back = queue.begin(), 1);
                         }
                     }
