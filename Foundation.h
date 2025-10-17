@@ -13,18 +13,22 @@
 
 #include <span>
 #include <tuple>
+#include <deque>
 #include <ranges>
 #include <vector>
 #include <string>
+#include <numeric>
 #include <utility>
 #include <concepts>
 #include <stdexcept>
 #include <algorithm>
-#include <numeric>
 
 namespace graph {
-    using vertexType = unsigned;
     using sizeType = unsigned;
+    using differenceType = signed;
+
+    struct Controller {};
+    struct Unweighted {};
 }
 
 #endif
