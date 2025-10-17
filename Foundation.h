@@ -11,9 +11,11 @@
 #define VALIDITY_CHECK(condition, errorType, message)
 #endif
 
+#include <bit>
 #include <span>
 #include <tuple>
 #include <deque>
+#include <limits>
 #include <ranges>
 #include <vector>
 #include <string>
