@@ -64,12 +64,12 @@ namespace graph {
             return m_valid;
         }
 
-        constexpr auto operator()(sizeType source) const -> const std::vector<Weight>& {
-            return m_distance[source];
+        constexpr auto operator()() const -> const std::vector<std::vector<Weight>>& {
+            return m_distance;
         }
 
-        constexpr auto operator()(sizeType source) -> std::vector<Weight>& {
-            return m_distance[source];
+        constexpr auto operator()() -> std::vector<std::vector<Weight>>& {
+            return m_distance;
         }
     };
 
@@ -125,12 +125,12 @@ namespace graph {
             return m_valid;
         }
 
-        constexpr auto operator()(sizeType source) const -> const std::vector<Weight>& {
-            return m_distance[source];
+        constexpr auto operator()() const -> const std::vector<std::vector<Weight>>& {
+            return m_distance;
         }
 
-        constexpr auto operator()(sizeType source) -> std::vector<Weight>& {
-            return m_distance[source];
+        constexpr auto operator()() -> std::vector<std::vector<Weight>>& {
+            return m_distance;
         }
     };
 }
