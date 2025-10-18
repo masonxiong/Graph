@@ -7,7 +7,7 @@
 namespace graph {
     template <typename Method = Controller, typename Weight = Unweighted, typename Merge = std::plus<Weight>, typename Split = std::minus<Weight>, typename Compare = std::less<Weight>, Weight Identity = Weight(), Weight Infinity = std::numeric_limits<Weight>::max()>
     class AllPairsShortestPath {
-        static_assert(!std::is_same_v<Method, Method>, "You must specify an algorithm type. Use AllPairsShortestPath<>::NaiveBellmanFord, OptimizedBellmanFord, NaiveDijkstra, or OptimizedDijkstra.");
+        static_assert(!std::is_same_v<Method, Method>, "You must specify an algorithm type. Use AllPairsShortestPath<>::Floyd or Johnson.");
     };
 
     template <typename Weight, typename Merge, typename Split, typename Compare, Weight Identity, Weight Infinity>
