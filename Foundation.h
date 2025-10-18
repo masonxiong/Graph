@@ -15,6 +15,7 @@
 #include <span>
 #include <tuple>
 #include <deque>
+#include <queue>
 #include <limits>
 #include <ranges>
 #include <vector>

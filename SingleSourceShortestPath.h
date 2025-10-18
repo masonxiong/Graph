@@ -218,19 +218,15 @@ namespace graph {
                 for (auto e : graph[u])
                     m_valid = m_valid && !compare(std::get<1>(e), Identity);
             if (m_valid && n) {
-                sizeType delta = n == 1 ? 2 : sizeType(1) << std::bit_width(n - 1);
-                std::vector<std::pair<Weight, sizeType>> tree(delta << 1, std::pair(Infinity, 0));
-                auto pushup = [compare](auto left, auto right) { return compare(left.first, right.first) ? left : right; };
-                auto modify = [&tree, delta, pushup](auto position, auto value) { for (position += delta, tree[position] = std::pair(value, position - delta); position >>= 1; tree[position] = pushup(tree[position << 1], tree[position << 1 | 1])); };
-                m_distance.assign(n, Infinity), modify(source, m_distance[source] = Identity);
-                for (sizeType round = n; round--; ) {
-                    sizeType u = tree[1].second;
-                    if (tree[1].first == Infinity)
-                        break;
-                    for (modify(u, Infinity); auto e : graph[u])
-                        if (compare(merge(m_distance[u], std::get<1>(e)), m_distance[sizeType(std::get<0>(e))]))
-                            modify(sizeType(std::get<0>(e)), m_distance[sizeType(std::get<0>(e))] = merge(m_distance[u], std::get<1>(e)));
-                }
+                std::vector<bool> visited(n);
+                m_distance.assign(n, Infinity), m_distance[source] = Identity;
+                auto heapCompare = [compare](auto left, auto right) { return compare(right.first, left.first); };
+                std::priority_queue<std::pair<Weight, sizeType>, std::vector<std::pair<Weight, sizeType>>, decltype(heapCompare)> queue(heapCompare);
+                for (queue.emplace(Identity, source); !queue.empty(); )
+                    if (sizeType u = queue.top().second; queue.pop(), !visited[u])
+                        for (visited[u] = true; auto e : graph[u])
+                            if (compare(merge(m_distance[u], std::get<1>(e)), m_distance[sizeType(std::get<0>(e))]))
+                                queue.emplace(m_distance[sizeType(std::get<0>(e))] = merge(m_distance[u], std::get<1>(e)), sizeType(std::get<0>(e)));
             }
         }
 
